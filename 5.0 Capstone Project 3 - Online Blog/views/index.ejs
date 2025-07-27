@@ -1,0 +1,21 @@
+<%- include("partials/header.ejs") %>
+
+<h1>Let's Improve Together</h1>
+<% if (blogPosts.length == 0) { %>
+    <button onclick="location.href='/create'">Create a new post</button>
+<% } else { %>
+    <div class="blog-posts">
+        <% blogPosts.forEach(post => { %>
+            <div class="post">
+                <h2><%= post.title %></h2>
+                <p><strong><%= post.author %></strong></p>
+                <!-- Only display the first 45 chars -->
+                <p class="truncated-para"><%= post.content.substring(0, 45) %></p>
+                <p><em><%= post.date %></em></p>
+                <!-- Add a link to the full post -->
+            </div>
+        <% }); %>
+    </div>
+<% } %>
+
+<%- include("partials/footer.ejs") %>
