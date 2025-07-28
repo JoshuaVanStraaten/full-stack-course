@@ -12,7 +12,15 @@
                 <!-- Only display the first 45 chars -->
                 <p class="truncated-para"><%= post.content.substring(0, 45) %></p>
                 <p><em><%= post.date %></em></p>
-                <!-- Add a link to the full post -->
+                <form action="/edit/<%= post.id %>" method="GET">
+                    <button type="submit">Edit</button>
+                </form>
+                <form action="/delete/<%= post.id %>" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+                <form action="/view/<%= post.id %>" method="GET">
+                    <button type="submit">Read More ...</button>
+                </form>
             </div>
         <% }); %>
     </div>
