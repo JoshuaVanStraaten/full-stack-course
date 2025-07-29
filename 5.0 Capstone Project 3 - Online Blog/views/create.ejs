@@ -1,11 +1,23 @@
 <%- include("partials/header.ejs") %>
 
-<form action="/create" method="POST">
-    <input type="text" name="title" placeholder="Title">
-    <input type="text" name="author" placeholder="Author">
-    <input type="text" name="content" placeholder="Please write your post here ...">
-    <input type="submit" value="Post">
-</form>
-
+<section id="create" class="container d-flex justify-content-center align-items-center">
+    <form action="/create" method="POST" class="w-100">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" id="title" class="form-control" name="title" placeholder="Title">
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" id="author" class="form-control" name="author" placeholder="John Doe">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Contents</label>
+            <textarea class="form-control" id="content" rows="10" name="content" placeholder="Please write your post here ..."></textarea>
+        </div>
+        <div class="text-end">
+            <input class="btn btn-outline-primary" type="submit" value="Post">
+        </div>
+    </form>
+</section>
 
 <%- include("partials/footer.ejs") %>
