@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeDex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <section id="navbar">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold fs-4" href="/">Pokédex</a>
+
+            <form class="d-flex ms-auto gap-2" role="search" action="/pokemon" method="POST">
+            <input
+                class="form-control"
+                list="pokemon-options"
+                name="pokemon"
+                placeholder="Search Pokémon"
+                aria-label="Search Pokémon"
+                required
+            />
+            <datalist id="pokemon-options">
+                <% pokemonList.forEach(pokemon => { %>
+                <option value="<%= pokemon.name %>"></option>
+                <% }) %>
+            </datalist>
+            <button class="btn btn-success" type="submit">Search</button>
+            </form>
+        </div>
+        </nav>
+    </section>
+    <!-- Pokemon Card -->
+    <section id="pokemon-card" class="container d-flex justify-content-center align-items-center">
+    <div>
+        <% if (locals.image && locals.stats) { %>
+            <div class="card">
+                <div class="hp d-flex justify-content-end">
+                    <span>
+                        <strong><%= hp.stat.name.toUpperCase() %></strong> <%= hp.base_stat %>
+                    </span>
+                </div>
+                <div class="card-img-top d-flex justify-content-center">
+                    <img class="pokemon-image" src="<%= image %>" alt="Image of <%= name %>" />
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title d-flex justify-content-center">
+                        <%= name.charAt(0).toUpperCase() + name.slice(1) %>
+                    </h3>
+                    <div class="type-wrapper">
+                        <p class="type-text"><strong><%= type %></strong></p>
+                    </div>
+                </div>
+                <div class="card-text text-center">
+                <!-- First row: base stats -->
+                <div class="d-flex justify-content-between mb-1">
+                    <% stats.forEach(stat => { %>
+                        <div class="flex-fill text-center">
+                            <strong><%= stat.base_stat %></strong>
+                        </div>
+                    <% }) %>
+                </div>
+
+                <!-- Second row: stat names -->
+                <div class="d-flex justify-content-between">
+                    <% stats.forEach(stat => { %>
+                        <div class="flex-fill text-center text-capitalize stat-name">
+                        <%= stat.stat.name.replace('-', ' ') %>
+                        </div>
+                    <% }) %>
+                </div>
+                </div>
+        <% } else { %>
+            <div class="text-center mt-5">
+                <h1 class="display-4">Welcome to the Pokédex!</h1>
+                <p class="lead">Search for any Pokémon using the bar above to see their stats, type, and more.</p>
+                <img src="images/Pokeball.png" alt="Pokéball" width="100" class="mt-4 opacity-50">
+                <p class="text-muted mt-3">Tip: Start typing and select a name from the list.</p>
+            </div>
+        <% } %>
+    </div>
+    </section>
+    <section id="footer">
+        <div class="container mt-auto">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+            <span class="mb-3 mb-md-0 text-body-secondary">Copyright © <%= new Date().getFullYear() %></span> </div>
+        </footer>
+        </div>
+    </section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+<script src="../scripts/colour.js"></script>
+</body>
+</html>

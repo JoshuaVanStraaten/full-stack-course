@@ -1,0 +1,78 @@
+#pokemon-card {
+    min-height: 100vh;
+}
+
+.card {
+    width: 18rem;
+    height: 22rem;
+    padding: 30px 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1); /* Transparent white */
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.25);
+}
+
+.pokemon-image {
+    margin: 20px auto;
+    height: 70px;
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+.hp {
+    padding: 0.25rem 0.75rem;
+    background-color: #ffffff;
+    text-align: center;
+    border-radius: 30px;
+    margin-left: auto;
+    font-weight: 400;
+}
+
+.type {
+    margin: 20px 0 0 0;
+    font-weight: 600;
+    border-radius: 20px;
+}
+
+.type-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.type-text {
+  display: inline-block;
+  margin: 0;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  color: white;
+  font-weight: bold;
+  font-size: small;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.stat-name {
+    color: #404060;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #eff3ff;
+}
