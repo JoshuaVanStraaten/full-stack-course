@@ -1,0 +1,74 @@
+<%- include("partials/header.ejs") %>
+
+<section id="home" class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4 fw-bold text-dark">My Book Reviews</h1>
+        <a href="/create" class="btn btn-primary">+ Add New Review</a>
+    </div>
+
+    <% if (reviews.length === 0) { %>
+        <div id="no-content" class="d-flex justify-content-center align-items-center">
+            <div class="text-center">
+                <h4 class="mb-3">No reviews yet</h4>
+                <p class="text-muted">Start by reviewing your first book!</p>
+                <button class="btn btn-outline-primary" onclick="location.href='/create'">
+                Create a new review
+                </button>
+            </div>
+        </div>
+        <% } else { %>
+        <div class="mb-3 d-flex align-items-center">
+            <label for="select" class="me-2 fw-medium">Sort By:</label>
+            <form action="/sort_by" method="GET">
+                <select id="select" name="sort_by" class="form-select" onchange="this.form.submit()">
+                    <option value="default" <%= sortBy === 'default' ? 'selected' : '' %>>Default</option>
+                    <option value="date_read" <%= sortBy === 'date_read' ? 'selected' : '' %>>Date Read</option>
+                    <option value="rating" <%= sortBy === 'rating' ? 'selected' : '' %>>Rating</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
+            <% reviews.forEach((post) => { %>
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img
+                            src="<%= post.image_url %>"
+                            alt="Cover of <%= post.title %>"
+                            class="card-img-top img-thumbnail book_cover"
+                            loading="lazy"
+                        >
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mb-1"><%= post.title %></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">by <%= post.author %></h6>
+
+                            <p class="card-text text-muted mb-1" style="font-size: 0.9rem;">
+                                Read on: <%= new Date(post.date_read).toLocaleDateString("en-ZA", {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric"
+                                }) %>
+                            </p>
+
+                            <div class="mb-2">
+                                <% for(let i = 1; i <= 10; i++) { %>
+                                    <i class="bi <%= i <= post.rating ? 'bi-star-fill' : 'bi-star' %> text-warning"></i>
+                                <% } %>
+                            </div>
+
+                            <p class="card-text mb-4 text-truncate" style="max-height: 4.5em;">
+                                <%= post.notes %>
+                            </p>
+
+                            <a href="/view/<%= post.book_id %>" class="btn btn-outline-dark mt-auto">Read Review</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } %>
+</section>
+
+
+<%- include("partials/footer.ejs") %>

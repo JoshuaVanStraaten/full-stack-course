@@ -1,0 +1,51 @@
+<%- include("partials/header.ejs") %>
+
+<section id="edit" class="container py-4 px-3">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form action="/edit/<%= review.book_id %>" method="POST" class="w-100 needs-validation" novalidate>
+        <div class="row">
+          <!-- Left column -->
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" id="title" class="form-control" name="title" value="<%= review.title %>" required>
+            </div>
+            <div class="mb-3">
+              <label for="author" class="form-label">Author(s)</label>
+              <input type="text" id="author" class="form-control" name="author" value="<%= review.author %>" required>
+            </div>
+            <div class="mb-3">
+              <label for="rating" class="form-label">Rating</label>
+              <input type="number" id="rating" class="form-control" name="rating" value="<%= review.rating %>" min="1" max="10" required>
+            </div>
+          </div>
+
+          <!-- Right column -->
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="isbn" class="form-label">ISBN</label>
+              <input type="text" id="isbn" class="form-control" name="isbn" value="<%= review.isbn %>" required>
+            </div>
+            <div class="mb-3">
+              <label for="date_read" class="form-label">Date Read</label>
+              <input type="date" id="date_read" class="form-control" name="date_read" value="<%= review.date_read.toISOString().slice(0, 10) %>">
+            </div>
+          </div>
+        </div>
+
+        <!-- Full width -->
+        <div class="mb-3">
+          <label for="notes" class="form-label">Book Review</label>
+          <textarea class="form-control" id="notes" rows="10" name="notes" required><%= review.notes %></textarea>
+        </div>
+
+        <div class="text-end">
+          <button class="btn btn-outline-primary" type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer.ejs") %>

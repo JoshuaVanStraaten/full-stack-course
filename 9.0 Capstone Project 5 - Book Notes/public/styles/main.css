@@ -1,0 +1,12 @@
+#no-content {
+    min-height: 60vh;
+}
+
+#select {
+    width: auto;
+}
+
+.book_cover {
+    height: 450px;
+    object-fit: contain;
+}

@@ -1,0 +1,121 @@
+# 📚 Book Notes - A Personal Reading Log
+
+Book Notes is a simple yet powerful web application built with Node.js, Express, and PostgreSQL. It allows you to maintain a personal log of the books you've read, complete with ratings, personal notes, and book cover art fetched dynamically from the Open Library API.
+
+It's a full-stack CRUD (Create, Read, Update, Delete) application designed to be a personal project and a great starting point for learning how these technologies work together.
+
+## Features
+- View All Reviews: See your entire collection of book notes on the homepage.
+- Create New Entries: Easily add a new book you've finished, providing details like title, author, ISBN, and your personal review.
+- Edit Existing Notes: Update a book's details or your review notes at any time.
+- Delete Entries: Remove books from your log.
+- Dynamic Cover Art: Automatically fetches book covers and subtitles using the book's ISBN from the Open Library API.
+- Sort Your Collection: Sort your books by title, rating, or the date you read them.
+
+## Tech Stack
+- Backend: Node.js, Express.js
+- Database: PostgreSQL
+- Node.js DB Driver: pg
+- Templating Engine: EJS (Embedded JavaScript)
+- API Client: axios for making HTTP requests to the Open Library API.
+- Middleware: body-parser for parsing incoming request bodies.
+
+## Prerequisites
+Before you begin, ensure you have the following installed on your system:
+
+- Node.js and npm (Node Package Manager)
+- PostgreSQL
+
+## Installation & Setup
+Follow these steps to get the application running on your local machine.
+
+1. Clone the Repository
+Clone this project to your local machine.
+
+```Bash
+git clone https://github.com/JoshuaVanStraaten/full-stack-course.git
+cd "9.0 Capstone Project 5 - Book Notes"
+```
+
+2. Install Dependencies
+Install the required npm packages listed in package.json.
+
+```Bash
+npm install
+```
+3. Set Up the PostgreSQL Database
+You need to create a database and the necessary tables for the application to store its data.
+
+a. Create a Database:
+Open your PostgreSQL terminal (psql) and create a new database.
+
+```SQL
+CREATE DATABASE book_notes;
+```
+
+b. Connect to your new database:
+
+```SQL
+\c book_notes
+```
+
+c. Create the Tables:
+Run the following SQL commands to create the book and review tables.
+
+```SQL
+-- Table for storing book information
+CREATE TABLE book (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(100),
+    isbn VARCHAR(20) UNIQUE,
+    image_url TEXT,
+    subtitle TEXT
+);
+
+-- Table for storing user reviews
+CREATE TABLE review (
+    id SERIAL PRIMARY KEY,
+    book_id INTEGER REFERENCES book(id) ON DELETE CASCADE,
+    date_read DATE,
+    rating INTEGER CHECK (rating >= 1 AND rating <= 10),
+    notes TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+Note: The ON DELETE CASCADE clause on the book_id foreign key is crucial. It ensures that when a book is deleted from the book table, its corresponding review in the review table is also automatically deleted, preventing orphaned data.
+
+4. Configure Database Connection
+Open the index.js file and update the pg.Client configuration object with your personal PostgreSQL credentials.
+
+```JavaScript
+// index.js
+
+const db = new pg.Client({
+  user: "YOUR_POSTGRES_USER", // e.g., "postgres"
+  host: "localhost",
+  database: "book_notes",
+  password: "YOUR_POSTGRES_PASSWORD",
+  port: 5432,
+});
+```
+
+## Usage
+Once the setup is complete, you can start the application server.
+
+```Bash
+node index.js
+```
+
+If you have nodemon installed, you can use it for automatic server restarts during development:
+
+```Bash
+nodemon index.js
+```
+
+The server will start running. Open your web browser and navigate to:
+http://localhost:3000
+
+You can now start adding, viewing, and managing your book notes!

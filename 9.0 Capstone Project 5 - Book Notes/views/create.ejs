@@ -1,0 +1,51 @@
+<%- include("partials/header.ejs") %>
+
+<section id="create" class="container py-4 px-3">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form action="/create" method="POST" class="w-100 needs-validation" novalidate>
+        <div class="row">
+          <!-- Left column -->
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" id="title" class="form-control" name="title" placeholder="Title" required>
+            </div>
+            <div class="mb-3">
+              <label for="author" class="form-label">Author(s)</label>
+              <input type="text" id="author" class="form-control" name="author" placeholder="John Doe" required>
+            </div>
+            <div class="mb-3">
+              <label for="rating" class="form-label">Rating</label>
+              <input type="number" id="rating" class="form-control" name="rating" placeholder="1-10" min="1" max="10" required>
+            </div>
+          </div>
+
+          <!-- Right column -->
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="isbn" class="form-label">ISBN</label>
+              <input type="text" id="isbn" class="form-control" name="isbn" placeholder="e.g. 9780735211292" required>
+            </div>
+            <div class="mb-3">
+              <label for="date_read" class="form-label">Date Read</label>
+              <input type="date" id="date_read" class="form-control" name="date_read">
+            </div>
+          </div>
+        </div>
+
+        <!-- Full width -->
+        <div class="mb-3">
+          <label for="notes" class="form-label">Book Review</label>
+          <textarea class="form-control" id="notes" rows="10" name="notes" placeholder="Please write your review here ..." required></textarea>
+        </div>
+
+        <div class="text-end">
+          <button class="btn btn-outline-primary" type="submit">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer.ejs") %>
